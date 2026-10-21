@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-ground font-sans text-ink antialiased; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-ksu-blue; }
+  input[type='checkbox'], input[type='radio'], input[type='range'] { accent-color: #1F4E9A; }
+}
+
+@layer components {
+  .card { @apply rounded-2xl border border-line bg-white shadow-card; }
+  .input {
+    @apply min-h-[40px] w-full rounded-[9px] border border-[#D5DDEA] bg-white px-3 text-sm text-ink
+           placeholder:text-subtle focus:border-ksu-blue focus:outline-none focus:ring-2 focus:ring-ksu-blue/20;
+  }
+  .label { @apply text-xs font-semibold text-muted; }
+  .table-th { @apply whitespace-nowrap bg-ksu-tint px-4 py-3 text-left text-xs font-semibold text-ksu-blue; }
+  .table-td { @apply whitespace-nowrap border-t border-[#E6EBF3] px-4 py-3.5 text-sm text-body; }
+}
+
+@keyframes highlight-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(233, 162, 59, 0.55); }
+  100% { box-shadow: 0 0 0 10px rgba(233, 162, 59, 0); }
+}
+.issue-flash { animation: highlight-pulse 0.9s ease-out 2; }

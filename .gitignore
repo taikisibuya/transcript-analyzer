@@ -1,0 +1,32 @@
+# รหัสลับ — ห้ามขึ้น Git
+.env
+*.env
+!.env.example
+
+# ข้อมูลส่วนบุคคล (ใบทรานสคริปต์จริง)
+backend/uploads/
+backend/preprocessed_output/
+backend/*.pdf
+backend/evaluation/dataset/
+backend/evaluation/ground_truth/
+backend/evaluation/predictions/
+backend/evaluation/work/
+backend/evaluation/results/
+frontend/public/evaluation.json
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Node
+node_modules/
+frontend/dist/
+
+# อื่น ๆ
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

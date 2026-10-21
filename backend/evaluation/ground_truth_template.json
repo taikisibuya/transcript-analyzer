@@ -1,0 +1,34 @@
+{
+  "_meta": {
+    "language": "th",
+    "source": "native_pdf",
+    "verified_by_human": true
+  },
+  "student": {
+    "student_id": "64010123",
+    "name_th": "นายสมชาย ใจดี",
+    "name_en": "Mr. Somchai Jaidee",
+    "institution": "มหาวิทยาลัยกาฬสินธุ์",
+    "faculty": "วิศวกรรมศาสตร์และเทคโนโลยีอุตสาหกรรม",
+    "major": "วิศวกรรมคอมพิวเตอร์",
+    "degree_name_th": "วิศวกรรมศาสตรบัณฑิต",
+    "gpa_cumulative": 3.75,
+    "total_credits_earned": 140
+  },
+  "semesters": [
+    {
+      "academic_year": 2567,
+      "semester": "1",
+      "semester_gpa": 3.5,
+      "courses": [
+        {
+          "course_code": "040603201",
+          "course_name_th": "การเขียนโปรแกรมคอมพิวเตอร์",
+          "course_name_en": "Computer Programming",
+          "credits": 3,
+          "grade": "A"
+        }
+      ]
+    }
+  ]
+}

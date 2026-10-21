@@ -1,0 +1,68 @@
+services:
+  # 1. Database: PostgreSQL พร้อม pgvector Extension
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: transcript-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: transcript_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/01_init.sql
+      - ./migrations/001_ui_redesign.sql:/docker-entrypoint-initdb.d/02_migrations.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d transcript_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Backend: FastAPI Application
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: transcript-backend
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/transcript_db
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # 3. Frontend: React / Vite Web Application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: transcript-frontend
+    restart: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: transcript-ngrok
+    restart: unless-stopped
+    command:
+      - "http"
+      - "frontend:80"
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040"
+    depends_on:
+      - frontend
+
+volumes:
+  postgres_data:
